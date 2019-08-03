@@ -25,7 +25,7 @@ class Canvas extends React.Component {
 
 		img.onload = () => {
 			// calculate x-offset to center image
-			const xOffset = ($(window).width() - width) / 2;
+			const xOffset = Math.min(0, ($(window).width() - width) / 2);
 
 			ctx.drawImage(img, xOffset, 0, canvas.width, canvas.height);
 			
