@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // CSS
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 // JS
-import 'jquery'
-import 'bootstrap/dist/js/bootstrap.js'
+import 'jquery';
+import 'bootstrap/dist/js/bootstrap.js';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
