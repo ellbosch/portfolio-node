@@ -56,7 +56,7 @@ class Canvas extends React.Component {
 				
 		ctx.drawImage(img, xOffset, 0, this.state.width, this.state.height);
 		
-		drawFog(this.state, ctx, canvas);
+		drawFog(this.state, ctx);
 	}
 
 	// remove event listener for window resize
@@ -75,12 +75,12 @@ class Canvas extends React.Component {
 }
 
 // draw fog on canvas
-function drawFog(state, context, canvas) {
+function drawFog(state, context) {
 	// set opacity and color of clouds
 	var colorFog = 238;
 	var opacity = 0.25;
-	var width = canvas.width;
-	var height = canvas.height;
+	var width = state.width;
+	var height = state.height;
 	var clouds = state.clouds;
 	var counter = state.counter;
 
