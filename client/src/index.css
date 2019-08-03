@@ -7,12 +7,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.hidden {
+  display: none;
+}
 
-#cover-photo {
-  background: url(./images/sf.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
+.cover-photo img {
+  /* background: url(./images/sf.jpg) no-repeat center center fixed;  */
+  /* -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  height: 75vh;
+  height: 75vh; */
 }

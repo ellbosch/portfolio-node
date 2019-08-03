@@ -1,5 +1,5 @@
 import React from 'react';
-import Fog from './fog';
+import Canvas from './fog';
 // import './js/fog--old.js';
 
 
@@ -13,7 +13,7 @@ function App() {
   return (
     <div>
       <Nav />
-      <CoverPage />
+      <Canvas />
       <div className="container-fluid">
         <Project project={lob} />
       </div>
@@ -59,13 +59,13 @@ function Nav() {
 }
 
 // Cover photo with canvas fog
-function CoverPage() {
-  return(
-    <div id="cover-photo">      
-      <Fog />
-    </div>
-  )
-}
+// function CoverPage() {
+//   return(
+//     <div id="cover-photo">      
+//       <Canvas />
+//     </div>
+//   )
+// }
 
 // Project info
 function Project(props) {

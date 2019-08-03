@@ -1,53 +1,56 @@
-// With a little help from https://philna.sh/blog/2018/09/27/techniques-for-animating-on-the-canvas-in-react/
-
 import React from 'react';
 import $ from 'jquery';
+import sfImg from './images/sf.jpg';
 
-class Fog extends React.Component {
-	constructor(props) {
-		super(props);
-		this.canvasRef = React.createRef();
-		this.height = props.height;
-		this.width = props.width;
-		this.cloudsArr = null;
-		this.animCounter = 1;
-	}
-
-	componentWillMount() {
-		const canvas = this.canvasRef.current;
-		
-		this.context = canvas.getContext('2d');
-		this.height = $('#cover-photo').height();
-		this.width = $(window).height();
-		this.cloudsArr = createClouds(0.30);
-	}
-
-	componentDidUpdate() {
-		var height = this.height;
-		var width = this.width;
-		var counter = this.animCounter;
-		var clouds = this.cloudsArr;
-		var context = this.context;
-
-		// clear canvas
-		context.clearRect(0, 0, width, height);
+class Canvas extends React.Component {
 	
-		// draw fog
-		drawFog(clouds, this.width, this.height, counter, context);
+	
+	componentDidMount() {
+		const canvas = this.refs.canvas;
+		const ctx = canvas.getContext("2d");
+		const img = this.refs.image;
+
+		// set canvas dimensions
+		canvas.width = $(window).width();
+		canvas.height = $(window).height() * .75;
+
+		// create randomly generated cloud objects
+		const clouds = createClouds(0.30, canvas);
+		
+		// counter used for animation
+		const counter = 1;
+
+		img.onload = () => {
+			// get the scale
+			var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+			// get the top left position of the image
+			var x = (canvas.width / 2) - (img.width / 2) * scale;
+			var y = (canvas.height / 2) - (img.height / 2) * scale;
+			ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+			
+			drawFog(clouds, counter, ctx, canvas);
+		}
 	}
 
 	render() {
 		return (
-			<div><canvas ref={this.canvasRef} /></div>
+			<div className="cover-photo">
+				<canvas ref="canvas" width={640} height={425} />
+				<img ref="image" src={sfImg} className="hidden" />
+			</div>
 		)
 	}
 }
 
 // draw fog on canvas
-function drawFog(clouds, width, height, counter, context) {
+function drawFog(clouds, counter, context, canvas) {
+	console.log(clouds);
+
 	// set opacity and color of clouds
 	var colorFog = 238;
 	var opacity = 0.25;
+	var width = canvas.width;
+	var height = canvas.height;
 
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
@@ -107,9 +110,9 @@ function drawFog(clouds, width, height, counter, context) {
 }
 
 // creates array of cloud objects
-function createClouds(fog_height) {
-	var ctx_width = Fog.WIDTH;
-	var ctx_height = Fog.HEIGHT;
+function createClouds(fog_height, canvas) {
+	var ctx_width = canvas.width;
+	var ctx_height = canvas.height;
 	var ratio_x = ctx_width/1440;
 	var ratio_y = ctx_height/768;
 
@@ -138,7 +141,6 @@ function createClouds(fog_height) {
 
 		radians += Math.PI / 20;
 	}
-
 	return clouds;
 }
 
@@ -182,4 +184,4 @@ function newCloudPoints(curve_x, y_begin, ctx_width, ctx_height) {
 	return quadCurvePoints;
 }
 
-export default Fog;
+export default Canvas;
