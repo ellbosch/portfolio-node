@@ -9,10 +9,13 @@ class Canvas extends React.Component {
 		const canvas = this.refs.canvas;
 		const ctx = canvas.getContext("2d");
 		const img = this.refs.image;
+		const imgRatio = img.height / img.width;
+		const height = $(window).height() * .75;
+		const width = height / imgRatio;
 
 		// set canvas dimensions
-		canvas.width = $(window).width();
-		canvas.height = $(window).height() * .75;
+		canvas.height = height;
+		canvas.width = width;
 
 		// create randomly generated cloud objects
 		const clouds = createClouds(0.30, canvas);
@@ -21,12 +24,10 @@ class Canvas extends React.Component {
 		const counter = 1;
 
 		img.onload = () => {
-			// get the scale
-			var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
-			// get the top left position of the image
-			var x = (canvas.width / 2) - (img.width / 2) * scale;
-			var y = (canvas.height / 2) - (img.height / 2) * scale;
-			ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+			// calculate x-offset to center image
+			const xOffset = ($(window).width() - width) / 2;
+
+			ctx.drawImage(img, xOffset, 0, canvas.width, canvas.height);
 			
 			drawFog(clouds, counter, ctx, canvas);
 		}
@@ -44,8 +45,6 @@ class Canvas extends React.Component {
 
 // draw fog on canvas
 function drawFog(clouds, counter, context, canvas) {
-	console.log(clouds);
-
 	// set opacity and color of clouds
 	var colorFog = 238;
 	var opacity = 0.25;

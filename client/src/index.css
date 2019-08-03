@@ -11,11 +11,8 @@ body {
   display: none;
 }
 
-.cover-photo img {
-  /* background: url(./images/sf.jpg) no-repeat center center fixed;  */
-  /* -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  height: 75vh; */
+.cover-photo {
+  width: 100%;
+  text-align:center;
+  margin: auto;
 }
