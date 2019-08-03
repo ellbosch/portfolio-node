@@ -3,40 +3,71 @@ import $ from 'jquery';
 import sfImg from './images/sf.jpg';
 
 class Canvas extends React.Component {
-	
+	constructor() {
+		super();
+		// this.canvasRef = React.createRef();
+		// this.imgRef = React.createRef();
+		this.state = {
+			width: 800,
+			height: 600,
+			clouds: [],
+			counter: 0
+		}
+	}
 	
 	componentDidMount() {
-		const canvas = this.refs.canvas;
-		const ctx = canvas.getContext("2d");
+		window.addEventListener("resize", this.updateCanvas.bind(this));
+		this.initCanvas();
+	}
+
+	initCanvas() {
 		const img = this.refs.image;
+	
+		img.onload = () => {
+			this.updateCanvas()
+		}
+	}
+
+	updateCanvas() {
+		const img = this.refs.image;
+		const canvas = this.refs.canvas;
 		const imgRatio = img.height / img.width;
 		const height = $(window).height() * .75;
 		const width = height / imgRatio;
+		const ctx = canvas.getContext("2d");
+		var clouds = [];
 
 		// set canvas dimensions
 		canvas.height = height;
 		canvas.width = width;
 
-		// create randomly generated cloud objects
-		const clouds = createClouds(0.30, canvas);
-		
-		// counter used for animation
-		const counter = 1;
-
-		img.onload = () => {
-			// calculate x-offset to center image
-			const xOffset = Math.min(0, ($(window).width() - width) / 2);
-
-			ctx.drawImage(img, xOffset, 0, canvas.width, canvas.height);
-			
-			drawFog(clouds, counter, ctx, canvas);
+		// create randomly generated cloud objects if not already created
+		if (this.state.clouds.length == 0) {
+			clouds = createClouds(0.30, canvas);
+		} else {
+			clouds = this.state.clouds
 		}
+
+		// update state
+		this.setState({ width: width, height: height, clouds: clouds, counter: 1 })
+
+		// calculate x-offset to center image
+		const xOffset = Math.min(0, ($(window).width() - this.state.width) / 2);
+				
+		ctx.drawImage(img, xOffset, 0, this.state.width, this.state.height);
+		
+		drawFog(this.state, ctx, canvas);
+	}
+
+	// remove event listener for window resize
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.updateCanvas.bind(this));
 	}
 
 	render() {
 		return (
 			<div className="cover-photo">
-				<canvas ref="canvas" width={640} height={425} />
+				<canvas ref="canvas" width={640} height={425} data-paper-resize />
 				<img ref="image" src={sfImg} className="hidden" />
 			</div>
 		)
@@ -44,12 +75,14 @@ class Canvas extends React.Component {
 }
 
 // draw fog on canvas
-function drawFog(clouds, counter, context, canvas) {
+function drawFog(state, context, canvas) {
 	// set opacity and color of clouds
 	var colorFog = 238;
 	var opacity = 0.25;
 	var width = canvas.width;
 	var height = canvas.height;
+	var clouds = state.clouds;
+	var counter = state.counter;
 
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
