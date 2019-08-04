@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
 import Canvas from './fog';
+import Model from './model';
 
-// Model (we'll move this later)
-const projectsModel = [
-  {
-    name: "Lob",
-    desc: "Lob presents an extensive variety of sports content, including game highlights, delivered in near real-time performance. Lob is currently a proof-of-concept iPhone app in private beta."
-  },
-  {
-    name: "SwiftVid",
-    desc: "Inspired from Lob, SwiftVid is a framework that provides easier integration of videos into Swift projects. SwiftVid will launch soon."
-  }
-]
-  
 function App() {
-  const [projects, setProjects] = useState(projectsModel);
+  const [projects, setProjects] = useState(Model().projects);
 
   return (
     <div>

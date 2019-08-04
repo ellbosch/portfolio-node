@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import $ from 'jquery';
-import sfImg from './images/sf.jpg';
+import sfImg from './bin/background-images/sf.jpg';
 
 class Canvas extends React.Component {
 	constructor() {

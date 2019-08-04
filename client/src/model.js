@@ -1,0 +1,21 @@
+import React from 'react';
+
+function Model() {
+	// Projects data
+	const projects = [
+		{
+		  name: "Lob",
+		  desc: "Lob presents an extensive variety of sports content, including game highlights, delivered in near real-time performance. Lob is currently a proof-of-concept iPhone app in private beta.",
+		  buttons: { title: "Write-Up", link:  ""}
+		},
+		{
+		  name: "SwiftVid",
+		  desc: "Inspired from Lob, SwiftVid is a framework that provides easier integration of videos into Swift projects. SwiftVid will launch soon."
+		}
+	]
+
+	return { projects: projects }
+}
+
+
+export default Model;
