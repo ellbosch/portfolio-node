@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import $ from 'jquery';
 import sfImg from './images/sf.jpg';
 
 class Canvas extends React.Component {
 	constructor() {
 		super();
-		// this.canvasRef = React.createRef();
-		// this.imgRef = React.createRef();
+		this.updateAnimationState = this.updateAnimationState.bind(this);
 		this.state = {
 			width: 800,
 			height: 600,
@@ -18,6 +17,22 @@ class Canvas extends React.Component {
 	componentDidMount() {
 		window.addEventListener("resize", this.updateCanvas.bind(this));
 		this.initCanvas();
+		this.rAF = requestAnimationFrame(this.updateAnimationState)
+	}
+
+	// remove event listener for window resize
+	componentWillUnmount() {
+		window.removeEventListener("resize", this.updateCanvas.bind(this));
+		cancelAnimationFrame(this.rAF);
+	}
+	
+	updateAnimationState() {
+		const canvas = this.refs.canvas;
+		const img = this.refs.image;
+		const ctx = canvas.getContext("2d");
+
+		drawScene(this.state, ctx, img);
+		this.rAF = requestAnimationFrame(this.updateAnimationState)
 	}
 
 	initCanvas() {
@@ -50,18 +65,8 @@ class Canvas extends React.Component {
 
 		// update state
 		this.setState({ width: width, height: height, clouds: clouds, counter: 1 })
-
-		// calculate x-offset to center image
-		const xOffset = Math.min(0, ($(window).width() - this.state.width) / 2);
-				
-		ctx.drawImage(img, xOffset, 0, this.state.width, this.state.height);
 		
-		drawFog(this.state, ctx);
-	}
-
-	// remove event listener for window resize
-	componentWillUnmount() {
-		window.removeEventListener("resize", this.updateCanvas.bind(this));
+		drawScene(this.state, ctx, img);
 	}
 
 	render() {
@@ -75,7 +80,7 @@ class Canvas extends React.Component {
 }
 
 // draw fog on canvas
-function drawFog(state, context) {
+function drawScene(state, context, img) {
 	// set opacity and color of clouds
 	var colorFog = 238;
 	var opacity = 0.25;
@@ -83,7 +88,14 @@ function drawFog(state, context) {
 	var height = state.height;
 	var clouds = state.clouds;
 	var counter = state.counter;
-
+	
+	// clear canvas
+	context.clearRect(0, 0, width, height);
+	
+	// calculate x-offset to center image
+	const xOffset = Math.min(0, ($(window).width() - width) / 2);
+	context.drawImage(img, xOffset, 0, width, height);
+	
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
 		var cloud = clouds[i];
