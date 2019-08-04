@@ -1,7 +1,5 @@
 import React from 'react';
 import Canvas from './fog';
-// import './js/fog--old.js';
-
 
 // Model (we'll move this later)
 let lob = {
