@@ -53,7 +53,6 @@ function Nav() {
 
 // Project info
 function Projects(props) {
-  console.log(props);
   return (
     <div id="projects" className="text-center">
       <h1>Projects</h1>

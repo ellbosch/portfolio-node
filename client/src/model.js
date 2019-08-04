@@ -6,7 +6,11 @@ function Model() {
 		{
 		  name: "Lob",
 		  desc: "Lob presents an extensive variety of sports content, including game highlights, delivered in near real-time performance. Lob is currently a proof-of-concept iPhone app in private beta.",
-		  buttons: { title: "Write-Up", link:  ""}
+		  buttons: [
+			  { title: "Download on TestFlight", link: "https://testflight.apple.com/join/3kzhQoyV" },
+			  { title: "GitHub", link: "https://github.com/ellbosch/Lob-iOS" },
+			  { title: "Write-Up", link: "bin/attachments/LobWriteup.pdf" }
+			]
 		},
 		{
 		  name: "SwiftVid",
