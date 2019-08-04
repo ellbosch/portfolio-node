@@ -64,6 +64,17 @@ function Projects(props) {
                 <div className="col-12 col-md-10 col-lg-8 col-xl-6">
                   <h2>{project.name}</h2>
                   <p>{project.desc}</p>
+                  <ul className="nav justify-content-center">
+                  {
+                    project.buttons.map(function(button, i) {
+                      return (
+                        <li className="nav-item">
+                          <dt><a className="nav-link" href={button.link}>{button.title}</a></dt>
+                        </li>
+                      )
+                    })
+                  }
+                  </ul>
                 </div>
               </div>
             </div>
