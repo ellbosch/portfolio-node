@@ -20,9 +20,7 @@ function App() {
     <div>
       <Nav />
       <Canvas />
-      <div className="container-fluid">
-        <Projects projects={projects} />
-      </div>
+      <Projects projects={projects} />
     </div>
   );
 }
@@ -68,13 +66,18 @@ function Nav() {
 function Projects(props) {
   console.log(props);
   return (
-    <div className="projects">
+    <div id="projects" className="text-center">
+      <h1>Projects</h1>
       {
         props.projects.map(function(project, i) {
           return (
-            <div className="project-item">
-              <h3>{project.name}</h3>
-              <p>{project.desc}</p>
+            <div className="container-fluid project-item">
+              <div className="row justify-content-center">
+                <div className="col-12 col-md-10 col-lg-8 col-xl-6">
+                  <h2>{project.name}</h2>
+                  <p>{project.desc}</p>
+                </div>
+              </div>
             </div>
           )
         })

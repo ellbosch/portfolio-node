@@ -16,3 +16,26 @@ body {
   text-align:center;
   margin: auto;
 }
+
+#projects h1 {
+  margin: 50px auto 0;
+}
+
+.project-item {
+  margin: 0;
+  padding: 80px 5px;
+}
+
+.project-item:nth-child(even) {
+  background-color: #fff;
+}
+
+.project-item:nth-child(odd) {
+  background-color: #f8f8f8;
+}
+
+.project-item > p {
+  text-align: center;
+  max-width: 800px;
+  margin: auto;
+}
