@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Canvas from './fog';
 
 // Model (we'll move this later)
-let lob = {
-  name: "Lob",
-  desc: "Lob presents an extensive variety of sports content, including game highlights, delivered in near real-time performance. Lob is currently a proof-of-concept iPhone app in private beta."
-}
-
+const projectsModel = [
+  {
+    name: "Lob",
+    desc: "Lob presents an extensive variety of sports content, including game highlights, delivered in near real-time performance. Lob is currently a proof-of-concept iPhone app in private beta."
+  },
+  {
+    name: "SwiftVid",
+    desc: "Inspired from Lob, SwiftVid is a framework that provides easier integration of videos into Swift projects. SwiftVid will launch soon."
+  }
+]
+  
 function App() {
+  const [projects, setProjects] = useState(projectsModel);
+
   return (
     <div>
       <Nav />
       <Canvas />
       <div className="container-fluid">
-        <Project project={lob} />
+        <Projects projects={projects} />
       </div>
     </div>
   );
@@ -56,21 +64,21 @@ function Nav() {
   );
 }
 
-// Cover photo with canvas fog
-// function CoverPage() {
-//   return(
-//     <div id="cover-photo">      
-//       <Canvas />
-//     </div>
-//   )
-// }
-
 // Project info
-function Project(props) {
+function Projects(props) {
+  console.log(props);
   return (
-    <div className="project-item">
-      <h3>{props.project.name}</h3>
-      <p>{props.project.desc}</p>
+    <div className="projects">
+      {
+        props.projects.map(function(project, i) {
+          return (
+            <div className="project-item">
+              <h3>{project.name}</h3>
+              <p>{project.desc}</p>
+            </div>
+          )
+        })
+      }
     </div>
   );
 }
