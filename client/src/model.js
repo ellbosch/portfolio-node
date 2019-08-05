@@ -9,7 +9,7 @@ function Model() {
 		  buttons: [
 			  { title: "Download on TestFlight", link: "https://testflight.apple.com/join/3kzhQoyV" },
 			  { title: "GitHub", link: "https://github.com/ellbosch/Lob-iOS" },
-			  { title: "Write-Up", link: {LobWriteupPdf} }
+			  { title: "Write-Up", link: LobWriteupPdf }
 			]
 		},
 		{

@@ -1,17 +1,28 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Canvas from './fog';
 import Model from './model';
 
+// Handles routing for app
 function App() {
+  return (
+    <Router>
+      <Nav />
+      <Route path="/" exact component={Home} />
+    </Router>
+  );
+}
+
+// Home page with canvas and projects
+function Home() {
   const [projects, setProjects] = useState(Model().projects);
 
   return (
     <div>
-      <Nav />
       <Canvas />
       <Projects projects={projects} />
     </div>
-  );
+  )
 }
 
 // Sticky nav on top of view
