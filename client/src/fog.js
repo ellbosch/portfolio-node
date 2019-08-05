@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import $ from 'jquery';
-import sfImg from './bin/background-images/sf.jpg';
+import imgRainier from './bin/background-images/rainier.jpg';
 
 class Canvas extends React.Component {
 	constructor() {
@@ -15,17 +15,18 @@ class Canvas extends React.Component {
 	}
 	
 	componentDidMount() {
-		window.addEventListener("resize", this.updateCanvas.bind(this));
+		window.addEventListener("resize", this.resetCanvas.bind(this));
 		this.initCanvas();
 		this.rAF = requestAnimationFrame(this.updateAnimationState)
 	}
 
 	// remove event listener for window resize
 	componentWillUnmount() {
-		window.removeEventListener("resize", this.updateCanvas.bind(this));
+		window.removeEventListener("resize", this.resetCanvas.bind(this));
 		cancelAnimationFrame(this.rAF);
 	}
 	
+	// animation loop
 	updateAnimationState() {
 		const canvas = this.refs.canvas;
 		const img = this.refs.image;
@@ -35,6 +36,7 @@ class Canvas extends React.Component {
 		this.rAF = requestAnimationFrame(this.updateAnimationState)
 	}
 
+	// inital init of canvas
 	initCanvas() {
 		const img = this.refs.image;
 	
@@ -43,12 +45,18 @@ class Canvas extends React.Component {
 		}
 	}
 
+	// update frame when window resizes
+	resetCanvas() {
+		this.state.clouds = [];
+		this.updateCanvas();
+	}
+
 	updateCanvas() {
 		const img = this.refs.image;
 		const canvas = this.refs.canvas;
 		const imgRatio = img.height / img.width;
-		const height = $(window).height() * .75;
-		const width = height / imgRatio;
+		const height = $(window).height() * .6;
+		const width = Math.min($(window).width(), img.width/3);
 		const ctx = canvas.getContext("2d");
 		var clouds = [];
 
@@ -58,7 +66,7 @@ class Canvas extends React.Component {
 
 		// create randomly generated cloud objects if not already created
 		if (this.state.clouds.length == 0) {
-			clouds = createClouds(0.30, canvas);
+			clouds = createClouds(0.3, canvas);
 		} else {
 			clouds = this.state.clouds
 		}
@@ -72,8 +80,8 @@ class Canvas extends React.Component {
 	render() {
 		return (
 			<div className="cover-photo">
-				<canvas ref="canvas" width={640} height={425} data-paper-resize />
-				<img ref="image" src={sfImg} className="hidden" />
+				<canvas ref="canvas" width={this.state.width} height={this.state.height} data-paper-resize />
+				<img ref="image" src={imgRainier} className="hidden" />
 			</div>
 		)
 	}
@@ -93,8 +101,10 @@ function drawScene(state, context, img) {
 	context.clearRect(0, 0, width, height);
 	
 	// calculate x-offset to center image
-	const xOffset = Math.min(0, ($(window).width() - width) / 2);
-	context.drawImage(img, xOffset, 0, width, height);
+	const imgWidth = img.width / 3;
+	const imgHeight = img.height / 3;
+	const xOffset = Math.min(0, (width - imgWidth) / 2);
+	context.drawImage(img, xOffset, -160, imgWidth, imgHeight);
 	
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
