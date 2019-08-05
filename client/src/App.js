@@ -108,50 +108,44 @@ function Carousel(props) {
   }
   const indicators = [];
   const items = [];
-  const indicatorsId = props.name + "-carousel-indicators"
-  const indicatorsIdHash = "#" + indicatorsId
+  const indicatorsId = props.name + "-carousel-indicators";
+  const indicatorsIdHash = "#" + indicatorsId;
   
   for (const [i, item] of props.items.entries()) {
+    var classIndicator = "";
+    var classItem = "carousel-item";
     if (i == 0) {
-      indicators.push(<li data-target="#carouselExampleIndicators" data-slide-to={i} className="active"></li>)
-      items.push(
-        <div className="carousel-item active">
-          <img src={item.path} className="d-block w-100" alt="item.alt" />
-          <div class="carousel-caption d-none d-md-block">
-            <p>{item.desc}</p>
-          </div>
-        </div>
-      )
-    } else {
-      indicators.push(<li data-target="#carouselExampleIndicators" data-slide-to={i}></li>)
-      items.push(
-        <div className="carousel-item">
-          <img src={item.path} className="d-block w-100" alt="item.alt" />
-          <div class="carousel-caption d-none d-md-block">
-            <p>{item.desc}</p>
-          </div>
-        </div>
-      )
+      classIndicator = "active";
+      classItem += " active";
     }
+    indicators.push(<li data-target={indicatorsIdHash} data-slide-to={i} className={classIndicator}></li>)
+    items.push(
+      <div className={classItem}>
+        <img src={item.path} className="d-block w-100" alt={item.alt} />
+        <div class="carousel-caption d-block">
+          <p>{item.desc}</p>
+        </div>
+      </div>
+    )
 
   }
 
   return (
     <div id={indicatorsId} className="carousel slide" data-ride="carousel">
-    <ol className="carousel-indicators">
-      {indicators}
-    </ol>
-    <div className="carousel-inner">
-      {items}
-    </div>
-    <a className="carousel-control-prev" href={indicatorsIdHash} role="button" data-slide="prev">
-      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span className="sr-only">Previous</span>
-    </a>
-    <a className="carousel-control-next" href={indicatorsIdHash} role="button" data-slide="next">
-      <span className="carousel-control-next-icon" aria-hidden="true"></span>
-      <span className="sr-only">Next</span>
-    </a>
+      <div className="carousel-inner">
+        {items}
+      </div>
+      <ol className="carousel-indicators">
+        {indicators}
+      </ol>
+      <a className="carousel-control-prev" href={indicatorsIdHash} role="button" data-slide="prev">
+        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span className="sr-only">Previous</span>
+      </a>
+      <a className="carousel-control-next" href={indicatorsIdHash} role="button" data-slide="next">
+        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+        <span className="sr-only">Next</span>
+      </a>
     </div>
   )
 }
