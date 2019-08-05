@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import $ from 'jquery';
 import imgRainier from './bin/background-images/rainier.jpg';
 
@@ -47,14 +47,13 @@ class Canvas extends React.Component {
 
 	// update frame when window resizes
 	resetCanvas() {
-		this.state.clouds = [];
+		this.setState({clouds: []});
 		this.updateCanvas();
 	}
 
 	updateCanvas() {
 		const img = this.refs.image;
 		const canvas = this.refs.canvas;
-		const imgRatio = img.height / img.width;
 		const height = $(window).height() * .6;
 		const width = Math.min($(window).width(), img.width/3);
 		const ctx = canvas.getContext("2d");
@@ -65,7 +64,7 @@ class Canvas extends React.Component {
 		canvas.width = width;
 
 		// create randomly generated cloud objects if not already created
-		if (this.state.clouds.length == 0) {
+		if (this.state.clouds.length === 0) {
 			clouds = createClouds(0.15, canvas);
 		} else {
 			clouds = this.state.clouds
@@ -81,7 +80,7 @@ class Canvas extends React.Component {
 		return (
 			<div className="cover-photo">
 				<canvas ref="canvas" width={this.state.width} height={this.state.height} data-paper-resize />
-				<img ref="image" src={imgRainier} className="hidden" />
+				<img ref="image" src={imgRainier} className="hidden" alt="Mt. Rainier" />
 			</div>
 		)
 	}
@@ -115,7 +114,6 @@ function drawScene(state, context, img) {
 		var dx = cloud.dx;
 
 		var x_end = cloudPoints[cloudPoints.length - 1].end_x;
-		var cloud_length = x_begin - x_end;
 
 		// start shape draw
 		context.fillStyle = "rgba(" + colorFog + ", " + colorFog + ", " + colorFog + ", " + opacity + ")";
@@ -151,7 +149,7 @@ function drawScene(state, context, img) {
 		}
 
 		// only check for every 10 iterations of counter
-		if (counter % 50 == 0) {
+		if (counter % 50 === 0) {
 			// shift and remove cloud points if past the viewport
 			while (cloudPoints.length > 1 && cloudPoints[0].end_x > width + width/14) {
 				cloud.y = cloudPoints.shift().end_y;

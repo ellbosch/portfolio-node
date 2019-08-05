@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import Canvas from './fog';
 import Model from './model';
-import Resume from './bin/attachments/BoschwitzElliot-Resume.pdf'
+// import Resume from './bin/attachments/BoschwitzElliot-Resume.pdf'
 
 // Handles routing for app
 function App() {
@@ -16,7 +16,7 @@ function App() {
 
 // Home page with canvas and projects
 function Home() {
-  const [projects, setProjects] = useState(Model().projects);
+  const [projects, ] = useState(Model().projects);
 
   return (
     <div>
@@ -30,7 +30,7 @@ function Home() {
 function Nav() {
   return (
     <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-light">
-      <Link className="navbar-brand" to={Home}><dt>Elliot Boschwitz</dt></Link>
+      <Link className="navbar-brand" to="/"><dt>Elliot Boschwitz</dt></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -59,17 +59,16 @@ function ProjectButtons(props) {
   const buttons = [];
   for (const i in props.buttons) {
     const button = props.buttons[i];
-    const maybeDownload = "";
     
     if (button.download != null) {
       buttons.push(
-        <li className="nav-item">
+        <li key={i} className="nav-item">
             <dt><a className="nav-link" href={button.link} download={button.download}>{button.title}</a></dt>
         </li>
       )
     } else {
       buttons.push(
-        <li className="nav-item">
+        <li key={i} className="nav-item">
             <dt><a className="nav-link" href={button.link}>{button.title}</a></dt>
         </li>
       )
@@ -86,7 +85,7 @@ function Projects(props) {
   for (const i in props.projects) {
     const project = props.projects[i];
     projects.push(
-      <div className="container-fluid project-item">
+      <div key={i} className="container-fluid project-item">
         <div className="row justify-content-center">
           <div className="col-12 col-md-10 col-lg-8 col-xl-6">
             <h2>{project.name}</h2>
@@ -115,7 +114,7 @@ function Projects(props) {
 
 // Carousel for screenshots for given projects
 function Carousel(props) {
-  if (props.items == null || props.name == null || props.name == "") {
+  if (props.items == null || props.name == null || props.name === "") {
     return(null)
   }
   const indicators = [];
@@ -126,15 +125,15 @@ function Carousel(props) {
   for (const [i, item] of props.items.entries()) {
     var classIndicator = "";
     var classItem = "carousel-item";
-    if (i == 0) {
+    if (i === 0) {
       classIndicator = "active";
       classItem += " active";
     }
-    indicators.push(<li data-target={indicatorsIdHash} data-slide-to={i} className={classIndicator}></li>)
+    indicators.push(<li key={i} data-target={indicatorsIdHash} data-slide-to={i} className={classIndicator}></li>)
     items.push(
-      <div className={classItem}>
+      <div key={i} className={classItem}>
         <img src={item.path} className="d-block w-100" alt={item.alt} />
-        <div class="carousel-caption d-block">
+        <div className="carousel-caption d-block">
           <p>{item.desc}</p>
         </div>
       </div>
