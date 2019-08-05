@@ -54,7 +54,7 @@ function Nav() {
             </div>
           </li>
           <li className="nav-item">
-            <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
       </div>
@@ -75,6 +75,7 @@ function Projects(props) {
                 <div className="col-12 col-md-10 col-lg-8 col-xl-6">
                   <h2>{project.name}</h2>
                   <p>{project.desc}</p>
+                  <Carousel items={project.screenshots} />
                   <ul className="nav justify-content-center">
                   {
                     project.buttons.map(function(button, i) {
@@ -94,6 +95,54 @@ function Projects(props) {
       }
     </div>
   );
+}
+
+// Carousel for screenshots for given projects
+function Carousel(props) {
+  const indicators = [];
+  const images = [];
+
+  if (props.items == null) {
+    return(null)
+  }
+
+  for (const [i, item] of props.items.entries()) {
+    if (i == 0) {
+      indicators.push(<li data-target="#carouselExampleIndicators" data-slide-to={i} className="active"></li>)
+      images.push(
+        <div className="carousel-item active">
+          <img src={item.path} className="d-block w-100" alt="item.alt" />
+        </div>
+      )
+    } else {
+      indicators.push(<li data-target="#carouselExampleIndicators" data-slide-to={i}></li>)
+      images.push(
+        <div className="carousel-item">
+          <img src={item.path} className="d-block w-100" alt="item.alt" />
+        </div>
+      )
+    }
+
+  }
+
+  return (
+    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+    <ol className="carousel-indicators">
+      {indicators}
+    </ol>
+    <div className="carousel-inner">
+      {images}
+    </div>
+    <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span className="sr-only">Previous</span>
+    </a>
+    <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span className="carousel-control-next-icon" aria-hidden="true"></span>
+      <span className="sr-only">Next</span>
+    </a>
+    </div>
+  )
 }
 
 export default App;
