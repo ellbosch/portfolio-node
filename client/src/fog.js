@@ -66,7 +66,7 @@ class Canvas extends React.Component {
 
 		// create randomly generated cloud objects if not already created
 		if (this.state.clouds.length == 0) {
-			clouds = createClouds(0.3, canvas);
+			clouds = createClouds(0.15, canvas);
 		} else {
 			clouds = this.state.clouds
 		}
@@ -104,7 +104,7 @@ function drawScene(state, context, img) {
 	const imgWidth = img.width / 3;
 	const imgHeight = img.height / 3;
 	const xOffset = Math.min(0, (width - imgWidth) / 2);
-	context.drawImage(img, xOffset, -160, imgWidth, imgHeight);
+	context.drawImage(img, xOffset, -20, imgWidth, imgHeight);
 	
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
