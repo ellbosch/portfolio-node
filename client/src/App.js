@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Canvas from './fog';
 import Model from './model';
 
@@ -28,8 +28,8 @@ function Home() {
 // Sticky nav on top of view
 function Nav() {
   return (
-    <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">Elliot Boschwitz</a>
+    <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-light">
+      <Link className="navbar-brand" to={Home}><dt>Elliot Boschwitz</dt></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
@@ -62,41 +62,60 @@ function Nav() {
   );
 }
 
+function ProjectButtons(props) {
+  const buttons = [];
+  for (const i in props.buttons) {
+    const button = props.buttons[i];
+    const maybeDownload = "";
+    
+    if (button.download != null) {
+      buttons.push(
+        <li className="nav-item">
+            <dt><a className="nav-link" href={button.link} download={button.download}>{button.title}</a></dt>
+        </li>
+      )
+    } else {
+      buttons.push(
+        <li className="nav-item">
+            <dt><a className="nav-link" href={button.link}>{button.title}</a></dt>
+        </li>
+      )
+    }
+
+  }
+  return buttons;
+}
+
 // Project info
 function Projects(props) {
+  const projects = []
+
+  for (const i in props.projects) {
+    const project = props.projects[i];
+    projects.push(
+      <div className="container-fluid project-item">
+        <div className="row justify-content-center">
+          <div className="col-12 col-md-10 col-lg-8 col-xl-6">
+            <h2>{project.name}</h2>
+            <p>{project.desc}</p>
+            <ul className="nav justify-content-center">
+              <ProjectButtons buttons={project.buttons} />
+            </ul>
+          </div>
+        </div>
+        <div className="row justify-content-center">
+          <div className="col-6 carousel-wrapper">
+            <Carousel name={project.name} items={project.screenshots} />
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div id="projects" className="text-center">
       <h1>Projects</h1>
-      {
-        props.projects.map(function(project, i) {
-          return (
-            <div className="container-fluid project-item">
-              <div className="row justify-content-center">
-                <div className="col-12 col-md-10 col-lg-8 col-xl-6">
-                  <h2>{project.name}</h2>
-                  <p>{project.desc}</p>
-                  <ul className="nav justify-content-center">
-                  {
-                    project.buttons.map(function(button, i) {
-                      return (
-                        <li className="nav-item">
-                          <dt><a className="nav-link" href={button.link}>{button.title}</a></dt>
-                        </li>
-                      )
-                    })
-                  }
-                  </ul>
-                </div>
-              </div>
-              <div className="row justify-content-center">
-                <div className="col-6 carousel-wrapper">
-                  <Carousel name={project.name} items={project.screenshots} />
-                </div>
-              </div>
-            </div>
-          )
-        })
-      }
+      {projects}
     </div>
   );
 }

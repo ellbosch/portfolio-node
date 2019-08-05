@@ -66,6 +66,7 @@ body {
 
  .carousel-wrapper {
    max-width: 350px;
+   margin-top: 30px;
  }
 
  .carousel-caption {
