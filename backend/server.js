@@ -1,4 +1,8 @@
 const express = require('express');
+const dotenv = require('dotenv');
+
+// hopefully this works on aws...
+dotenv.config();
 
 const API_PORT = process.env.HTTP_PORT || 3001;
 const app = express();

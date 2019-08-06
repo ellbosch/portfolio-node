@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "client": "file:client",
-    "concurrently": "^4.1.1"
+    "concurrently": "^4.1.1",
+    "dotenv": "^8.0.0"
   }
 }
