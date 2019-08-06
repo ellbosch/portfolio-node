@@ -103,7 +103,8 @@ function drawScene(state, context, img) {
 	const imgWidth = img.width / 3;
 	const imgHeight = img.height / 3;
 	const xOffset = Math.min(0, (width - imgWidth) / 2);
-	context.drawImage(img, xOffset, -20, imgWidth, imgHeight);
+	const yOffset = Math.min(0, (height - imgHeight) / 2);
+	context.drawImage(img, xOffset, yOffset, imgWidth, imgHeight);
 	
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
