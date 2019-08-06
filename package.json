@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "client": "file:client",
     "concurrently": "^4.1.1"
   }
 }
