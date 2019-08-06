@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 import Canvas from './fog';
 import Model from './model';
-// import Resume from './bin/attachments/BoschwitzElliot-Resume.pdf'
+import Resume from './bin/attachments/BoschwitzElliot-Resume.pdf'
 
 // Handles routing for app
 function App() {
@@ -43,11 +43,11 @@ function Nav() {
           <li className="nav-item">
             <a className="nav-link" href="https://github.com/ellbosch">GitHub</a>
           </li>
-          {/* <li className="nav-item">
-            <a className="nav-link" href={Resume}>Resume</a>
-          </li> */}
           <li className="nav-item">
             <a className="nav-link" href="https://linkedin.com/in/elliotboschwitz">LinkedIn</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href={Resume}>Resume</a>
           </li>
         </ul>
       </div>
