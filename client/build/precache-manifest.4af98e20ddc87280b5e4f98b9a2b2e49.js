@@ -1,27 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "386e2de0e43bdf06abd5a0eaeb7c723a",
+    "revision": "8a88a778e0d04e04c25cd375e4a48221",
     "url": "/index.html"
   },
   {
-    "revision": "b42780daa7a05c094e64",
+    "revision": "d18b6e4e894d90e91662",
     "url": "/static/css/2.22a7d4ef.chunk.css"
   },
   {
-    "revision": "fbba24d36ad3cb89fa2f",
-    "url": "/static/css/main.0588e8d3.chunk.css"
+    "revision": "33f15ad69d58e0909760",
+    "url": "/static/css/main.746f43a7.chunk.css"
   },
   {
-    "revision": "b42780daa7a05c094e64",
-    "url": "/static/js/2.63203d25.chunk.js"
+    "revision": "d18b6e4e894d90e91662",
+    "url": "/static/js/2.0ab70eb8.chunk.js"
   },
   {
-    "revision": "fbba24d36ad3cb89fa2f",
-    "url": "/static/js/main.28742590.chunk.js"
+    "revision": "33f15ad69d58e0909760",
+    "url": "/static/js/main.f0847688.chunk.js"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
+  },
+  {
+    "revision": "c177345c4a08791a36e6856dc5c14579",
+    "url": "/static/media/BoschwitzElliot-Resume.c177345c.pdf"
   },
   {
     "revision": "a59066dd6f9c281b11b8292424f7d4d7",
