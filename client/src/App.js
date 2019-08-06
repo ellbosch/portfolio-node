@@ -29,7 +29,7 @@ function Home() {
 // Sticky nav on top of view
 function Nav() {
   return (
-    <nav className="navbar sticky-top navbar-expand-sm navbar-light bg-light">
+    <nav id="navbar-main" className="navbar sticky-top navbar-expand-sm navbar-light">
       <Link className="navbar-brand" to="/"><dt>Elliot Boschwitz</dt></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
