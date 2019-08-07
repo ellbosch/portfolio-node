@@ -65,7 +65,7 @@ class Canvas extends React.Component {
 
 		// create randomly generated cloud objects if not already created
 		if (this.state.clouds.length === 0) {
-			clouds = createClouds(0.15, canvas);
+			clouds = createClouds(0.3, canvas);
 		} else {
 			clouds = this.state.clouds
 		}
@@ -86,9 +86,30 @@ class Canvas extends React.Component {
 	}
 }
 
-// draw fog on canvas
 function drawScene(state, context, img) {
-	// set opacity and color of clouds
+	drawImage(state, context, img);
+	drawFog(state, context);
+}
+
+function drawImage(state, context, img) {
+	const width = $(window).width();
+	const height = $(window).height() * 0.6;
+
+	// clear canvas
+	context.clearRect(0, 0, width, height);
+
+	// calculate x-offset to center image
+	// const divisor = Math.max(img.width/width, 1);   // never let width go beyond photo capability
+	
+	const imgWidth = img.width / 3;
+	const imgHeight = img.height / 3;
+	const xOffset = Math.min(0, (width - imgWidth) / 2);
+	const yOffset = Math.min(0, (height - imgHeight) / 2);
+	context.drawImage(img, xOffset, yOffset, imgWidth, imgHeight);
+}
+
+// draw fog on canvas
+function drawFog(state, context) {
 	var colorFog = 238;
 	var opacity = 0.25;
 	var width = state.width;
@@ -97,14 +118,8 @@ function drawScene(state, context, img) {
 	var counter = state.counter;
 	
 	// clear canvas
-	context.clearRect(0, 0, width, height);
-	
-	// calculate x-offset to center image
-	const imgWidth = img.width / 3;
-	const imgHeight = img.height / 3;
-	const xOffset = Math.min(0, (width - imgWidth) / 2);
-	const yOffset = Math.min(0, (height - imgHeight) / 2);
-	context.drawImage(img, xOffset, yOffset, imgWidth, imgHeight);
+	// context.clearRect(0, 0, width, height);
+
 	
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
