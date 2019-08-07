@@ -55,7 +55,7 @@ class Canvas extends React.Component {
 		const img = this.refs.image;
 		const canvas = this.refs.canvas;
 		const height = $(window).height() * .6;
-		const width = Math.min($(window).width(), img.width/3);
+		const width = Math.min($(window).width(), img.width);
 		const ctx = canvas.getContext("2d");
 		var clouds = [];
 
@@ -101,8 +101,8 @@ function drawImage(state, context, img) {
 	// calculate x-offset to center image
 	// const divisor = Math.max(img.width/width, 1);   // never let width go beyond photo capability
 	
-	const imgWidth = img.width / 3;
-	const imgHeight = img.height / 3;
+	const imgWidth = img.width;
+	const imgHeight = img.height;
 	const xOffset = Math.min(0, (width - imgWidth) / 2);
 	const yOffset = Math.min(0, (height - imgHeight) / 2);
 	context.drawImage(img, xOffset, yOffset, imgWidth, imgHeight);
@@ -116,10 +116,6 @@ function drawFog(state, context) {
 	var height = state.height;
 	var clouds = state.clouds;
 	var counter = state.counter;
-	
-	// clear canvas
-	// context.clearRect(0, 0, width, height);
-
 	
 	// iterate through every cloud
 	for (var i = 0; i < clouds.length; i++) {
