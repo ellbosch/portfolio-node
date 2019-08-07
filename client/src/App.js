@@ -1,11 +1,26 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import ReactGA from 'react-ga';
 import Canvas from './fog';
 import Model from './model';
 import Resume from './bin/attachments/BoschwitzElliot-Resume.pdf'
 
+// Initialize analytics
+function initializeReactGA() {
+  ReactGA.initialize('UA-54022705-1');
+  // ,{
+  //   debug: true,
+  //   titleCase: false,
+  //   gaOptions: {
+  //     userId: 123
+  //   }
+  // });
+}
+
 // Handles routing for app
 function App() {
+  initializeReactGA();
+
   return (
     <Router>
       <Nav />
@@ -16,6 +31,8 @@ function App() {
 
 // Home page with canvas and projects
 function Home() {
+  ReactGA.pageview('/homepage');
+
   const [projects, ] = useState(Model().projects);
 
   return (
