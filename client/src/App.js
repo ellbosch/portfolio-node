@@ -95,11 +95,7 @@ function Projects(props) {
             </ul>
           </div>
         </div>
-        <div className="row justify-content-center">
-          <div className="col-6 carousel-wrapper">
-            <Carousel name={project.name} items={project.screenshots} />
-          </div>
-        </div>
+        <Carousel name={project.name} items={project.screenshots} />
       </div>
     )
   }
@@ -142,21 +138,25 @@ function Carousel(props) {
   }
 
   return (
-    <div id={indicatorsId} className="carousel slide" data-ride="carousel">
-      <div className="carousel-inner">
-        {items}
+    <div className="row justify-content-center">
+      <div className="col-6 carousel-wrapper">
+        <div id={indicatorsId} className="carousel slide" data-ride="carousel">
+          <div className="carousel-inner">
+            {items}
+          </div>
+          <ol className="carousel-indicators">
+            {indicators}
+          </ol>
+          <a className="carousel-control-prev" href={indicatorsIdHash} role="button" data-slide="prev">
+            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span className="sr-only">Previous</span>
+          </a>
+          <a className="carousel-control-next" href={indicatorsIdHash} role="button" data-slide="next">
+            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span className="sr-only">Next</span>
+          </a>
+        </div>
       </div>
-      <ol className="carousel-indicators">
-        {indicators}
-      </ol>
-      <a className="carousel-control-prev" href={indicatorsIdHash} role="button" data-slide="prev">
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span className="sr-only">Previous</span>
-      </a>
-      <a className="carousel-control-next" href={indicatorsIdHash} role="button" data-slide="next">
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="sr-only">Next</span>
-      </a>
     </div>
   )
 }

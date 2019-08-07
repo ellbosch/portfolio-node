@@ -38,7 +38,7 @@ body {
 
 .project-item {
   margin: 0;
-  padding: 80px 5px;
+  padding: 50px 5px;
 }
 
 .project-item:nth-child(even) {
